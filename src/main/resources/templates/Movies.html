@@ -5,6 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-  <h4 th:text="${movies}"></h4>
+  <h4>Best movies of the year</h4>
+  <ul th:unless="${movies.size() == 0}">
+      <li th:each="movie : ${movies}"><a th:href="@{|/Movie-detail/${movie.id}|}" th:text="${movie.title}"></a></li>
+  </ul>
 </body>
 </html>
