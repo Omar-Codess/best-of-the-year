@@ -5,6 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-    <h2 th:text="'Best of the year by ' + ${name}"></h2>
+<nav th:replace="~{fragment :: navbar('home')}"></nav>
+<div class="text-center w-50 mx-auto">
+    <h1>“Best of the year by <span th:text="${name}"></span>”</h1>
+    <img th:src="@{/28904724-Best-of-the-best-vector-stamp-Stock-Photo.webp}">
+    <p class="px-5 py-3">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Sed euismod, nisi eget dignissim ultrices, nulla lorem accumsan enim, a rutrum elit ipsum eu neque.
+        Nunc sagittis nunc sed ligula varius, ac dapibus magna imperdiet. Nulla facilisi. Donec lacinia nulla nec mi hendrerit blandit.
+    </p>
+
+</div>
+<th:block th:replace="~{fragment :: scripts}"></th:block>
 </body>
 </html>
