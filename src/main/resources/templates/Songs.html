@@ -7,7 +7,7 @@
 <body>
     <h4>Best Songs of the year</h4>
     <ul th:unless="${songs.size() == 0}">
-        <li th:each="song : ${songs}"><a th:href="@{|/Song-detail/${song.id}|}" th:text="${song.title}"></a></li>
+        <li th:each="song : ${songs}"><a th:href="@{|/songs/${song.id}|}" th:text="${song.title}"></a></li>
     </ul>
 </body>
 </html>

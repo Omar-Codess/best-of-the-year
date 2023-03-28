@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping ("/")
@@ -25,37 +26,40 @@ public class BestOfTheYearController {
     @GetMapping("/movies")
     public String movies(Model model){
         List<Movie> list = getBestMovies();
-        String titles = "";
+        /*String titles = "";
         for (Movie m : list){
             titles += m.getTitle() + ", ";
         }
-        titles = titles.substring(0, titles.length() -2);
+        titles = titles.substring(0, titles.length() -2);*/
         model.addAttribute("movies", list);
         return "movies";
     }
 
-    @GetMapping("/{id}")
-    public String movieDetails(@PathVariable("id") int id, Model model){
-        for (Movie m : getBestMovies()){
-            if (m.getId() == id){
-                model.addAttribute("movie", m);
-            }
-        }
-        return "Movie-detail";
+    @GetMapping("/movies/{id}")
+    public String movieId(@PathVariable("id") int id, Model model){
+        Optional<Movie> foundMovie = getBestMovies().stream().filter(movie -> movie.getId() == id).findFirst();
+        model.addAttribute("movie", foundMovie.isPresent() ? foundMovie.get() : "Movie not found");
+        return "movieDetails";
     }
 
     @GetMapping("/songs")
     public String songs(Model model){
         List<Song> list = getBestSongs();
-        String titles = "";
+        /*String titles = "";
         for (Song s : list){
             titles += s.getTitle() + ", ";
         }
-        titles = titles.substring(0, titles.length() -2);
+        titles = titles.substring(0, titles.length() -2);*/
         model.addAttribute("songs", list);
         return "songs";
     }
 
+    @GetMapping("/songs/{id}")
+    public String songId(@PathVariable("id") int id, Model model){
+        Optional<Song> foundSong = getBestSongs().stream().filter(song->song.getId() == id).findFirst();
+        model.addAttribute("song", foundSong.isPresent() ? foundSong.get() : "Song not found");
+        return "songDetails";
+    }
 
     private List<Movie> getBestMovies(){
         List<Movie> movies = new ArrayList<>();
